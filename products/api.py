@@ -16,16 +16,16 @@ class Off:
 
     def __init__(self):
         self.api_products = []
+        self.result = []
 
-    @staticmethod
-    def query(page):
+    def query(self, page):
         """
         Get OpenFoodFacts products.
         :param page: Page Number. 1 to .. Max pages calculated in 'page_limit()'.
         :return: Products searched with parameters. Type: List.
                 (Default parameters: COUNTRY = France , STATE = Complete , PAGE_SIZE = 1000).
         """
-        result = openfoodfacts.products.advanced_search([{
+        self.result = openfoodfacts.products.advanced_search({
             "search_terms": "",
             "tagtype_0": "countries",
             "tag_contains_0": "contains",
@@ -36,8 +36,8 @@ class Off:
             "page": page,
             "page_size": settings.PAGE_SIZE,
             "json": "1"
-        }])
-        return result
+        })
+        return self.result
 
     def page_limit(self):
         """

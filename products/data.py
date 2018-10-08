@@ -105,7 +105,7 @@ class Save:
         del_list.reverse()
         for i in range(0, len(del_list)):
             del self.s_products[del_list[i]]
-        self.u_products.append(self.s_products)
+        self.u_products.extend(self.s_products)
 
         with open('products.json', 'w', encoding='utf-8') as outfile:
             json.dump(self.u_products, outfile, indent=4, separators=(', ', ': '))

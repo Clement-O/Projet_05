@@ -64,22 +64,16 @@ class Dictionary:
         :param product_n: product_n: product_number (1 to 'PAGE_SIZE').
         :return: 'allergens'. Type: Dict.
         """
+        allergens = {}
         if self.api_products[page_n]['products'][product_n]['allergens_hierarchy']:
-            milk = 0  # False
-            gluten = 0  # False
-            for allergen in self.api_products[page_n]['products'][product_n]['allergens_hierarchy']:
-                if allergen == 'en:milk':
-                    milk = 1  # True
-                if allergen == 'en:gluten':
-                    gluten = 1  # True
+            for i in settings.ALLERGEN_LIST:
+                allergens.update({i: 0})
+                for allergen in self.api_products[page_n]['products'][product_n]['allergens_hierarchy']:
+                    if allergen == 'en:'+i:
+                        allergens[i] = 1
         else:
-            milk = 0  # False
-            gluten = 0  # False
-
-        allergens = {
-            'milk': milk,
-            'gluten': gluten
-        }
+            for i in settings.ALLERGEN_LIST:
+                allergens.update({i: 0})
         return allergens
 
     def labels(self, page_n, product_n):
@@ -89,32 +83,16 @@ class Dictionary:
         :param product_n: product_n: product_number (1 to 'PAGE_SIZE').
         :return: 'labels'. Type: Dict.
         """
+        labels = {}
         if self.api_products[page_n]['products'][product_n]['labels_hierarchy']:
-            organic = 0
-            vegetarian = 0
-            halal = 0
-            kosher = 0
-            for labels in self.api_products[page_n]['products'][product_n]['labels_hierarchy']:
-                if labels == 'en:organic':
-                    organic = 1
-                if labels == 'en:vegetarian':
-                    vegetarian = 1
-                if labels[:8] == 'en:halal':
-                    halal = 1
-                if labels == 'en:kosher':
-                    kosher = 1
+            for i in settings.LABEL_LIST:
+                labels.update({i: 0})
+                for label in self.api_products[page_n]['products'][product_n]['labels_hierarchy']:
+                    if label == 'en:'+i:
+                        labels[i] = 1
         else:
-            organic = 0
-            vegetarian = 0
-            halal = 0
-            kosher = 0
-
-        labels = {
-            'organic': organic,
-            'vegetarian': vegetarian,
-            'halal': halal,
-            'kosher': kosher
-        }
+            for i in settings.LABEL_LIST:
+                labels.update({i: 0})
         return labels
 
     def nutrition_score(self, page_n, product_n):
