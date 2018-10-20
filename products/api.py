@@ -56,5 +56,5 @@ class Off:
         page = 1
         while page <= settings.PAGE_LIMIT:
             self.api_products.append(self.query(page))  # Append query(page) to self.raw_data
-            print('Page ' + str(page) + ' over ' + str(settings.PAGE_LIMIT) + ' fetched !')
+            print(f'Page {str(page)} over {str(settings.PAGE_LIMIT)} fetched !')
             page += 1
