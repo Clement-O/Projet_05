@@ -1,5 +1,5 @@
 {
-    "first_launch": true,
+    "first_launch": false, 
     "host": "localhost", 
     "user": "userpb", 
     "password": "userpb", 

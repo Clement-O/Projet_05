@@ -133,7 +133,7 @@ class Pb:
         Display saved substitutes / Manage substitute to be saved (or deleted, not implemented)
         """
         if string == 'save':
-            self.database.query('save', self.id_chosen_product, self.substitute[0])
+            self.database.query('save', self.id_chosen_product, self.substitute[0][0])
             print("Your product and its substitute has been saved ! You can access it via the main menu.\n")
         if string == 'saved':
             r_query = self.database.query('saved')
@@ -222,7 +222,7 @@ class Choice:
         # Hidden default choice : 'MENU' ('m') or 'QUIT' ('q')
         if self.user_input == 'SAVE':
             return 'save'
-        if (self.user_input == self.data['menu'][0]) or (self.user_input == self.data['menu'][1]):
+        if self.user_input == self.data['menu']:
             return self.data['menu'][0]
         else:
             while self.user_input not in self.word:
