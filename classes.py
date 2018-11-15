@@ -25,6 +25,7 @@ class Pb:
         self.random_products = []
         self.id_chosen_product = 0
         self.substitute = []
+        self.digits = [v for k in self.data if k == 'digits' for v in self.data[k]]
 
     def launch(self):
         """
@@ -74,9 +75,9 @@ class Pb:
             category_name = ''.join(s_list)
             self.category_list.append(category_name.capitalize())
         print("------------------------ CATEGORIES ------------------------")
-        print("     Type one of the figures to select a category :")
+        print("     Type one of the digits to select a category :")
         for i in range(0, 10):
-            print(str(i) + " : " + self.category_list[i])
+            print(str(self.digits[i]) + " : " + self.category_list[i])
 
     def display_products(self, user_input):
         """
@@ -84,23 +85,23 @@ class Pb:
         """
         print(
             "------------------------- PRODUCTS -------------------------\n"
-            f"You choose \"{self.category_list[int(user_input)]}\" category !\n"
-            "   Type one of the figures to select a product :"
+            f"You choose \"{self.category_list[self.digits.index(user_input)]}\" category !\n"
+            "   Type one of the digits to select a product :"
         )
-        self.random_products = random.sample(self.database.query("products", user_input), 10)
+        self.random_products = random.sample(self.database.query("products", self.digits.index(user_input)), 10)
         for i in range(0, len(self.random_products)):
-            print(str(i) + " : " + self.random_products[i][1])
+            print(str(self.digits[i] + " : " + self.random_products[i][1]))
 
     def display_substitute(self, user_input):
         """
         Display chosen substitute
         """
-        self.id_chosen_product = self.random_products[int(user_input)][0]
+        self.id_chosen_product = self.random_products[self.digits.index(user_input)][0]
         print(
             "------------------------ SUBSTITUTE ------------------------\n"
-            f"You choose \"{self.random_products[int(user_input)][1]}\" as product !\n"
+            f"You choose \"{self.random_products[self.digits.index(user_input)][1]}\" as product !\n"
         )
-        self.substitute = self.database.query("substitute", self.random_products[int(user_input)][0])
+        self.substitute = self.database.query("substitute", self.random_products[self.digits.index(user_input)][0])
 
         if self.substitute:
             stores = ''
@@ -110,7 +111,7 @@ class Pb:
             if stores_list:
                 stores = ', '.join(stores_list)
             print(
-                f"Your product nutrition score is {self.random_products[int(user_input)][2]}\n"
+                f"Your product nutrition score is {self.random_products[self.digits.index(user_input)][2]}\n"
                 "   It has been replaced by :\n"
                 f"       - Name : {self.substitute[0][1]}\n"
                 f"       - Description : {self.substitute[0][2]}\n"
@@ -164,7 +165,7 @@ class Choice:
         self.data = data
         self.user_input = ""
         self.word = []
-        self.figures = [v for k in self.data if k == 'figures' for v in self.data[k]]
+        self.digits = [v for k in self.data if k == 'digits' for v in self.data[k]]
         for k in self.data:
             if k == 'menu' or k == 'saved' or k == 'find' or k == 'update' or k == 'quit':
                 for v in self.data[k]:
@@ -197,9 +198,9 @@ class Choice:
         Wait for input and check if input is valid or not.
         """
         self.user_input = input("   => ")
-        while self.user_input not in self.figures:
+        while self.user_input not in self.digits:
             self.user_input = input(
-                "Invalid value ! Please enter a valid figure.\n"
+                "Invalid value ! Please enter a valid digit.\n"
                 "   => "
             )
 
@@ -208,9 +209,9 @@ class Choice:
         Wait for input and check if input is valid or not.
         """
         self.user_input = input("   => ")
-        while self.user_input not in self.figures:
+        while self.user_input not in self.digits:
             self.user_input = input(
-                "Invalid value ! Please enter a valid figure.\n"
+                "Invalid value ! Please enter a valid digit.\n"
                 "   => "
             )
 

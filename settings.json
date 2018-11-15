@@ -1,5 +1,5 @@
 {
-    "first_launch": false, 
+    "first_launch": true,
     "host": "localhost", 
     "user": "userpb", 
     "password": "userpb", 
@@ -23,7 +23,7 @@
         "QUIT", 
         "q"
     ], 
-    "figures": [
+    "digits": [
         "0", 
         "1", 
         "2", 

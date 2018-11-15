@@ -44,7 +44,7 @@ def pur_beurre():
         elif choice.user_input in data['find']:
             pb.display_categories()
             choice.categories()
-            if choice.user_input in data['figures']:
+            if choice.user_input in data['digits']:
                 pb.display_products(choice.user_input)
                 choice.products()
                 if pb.display_substitute(choice.user_input):
